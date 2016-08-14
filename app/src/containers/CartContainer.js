@@ -9,8 +9,6 @@ class CartContainer extends Component {
 
         const { products } = this.props;
 
-        console.log('products', products);
-
         return (
             <div>
                 <Cart
@@ -21,16 +19,25 @@ class CartContainer extends Component {
     }
 }
 
-const getCartContent = (products, addedIds) => {
-    let newProducts = products.filter(product => {
-        if (addedIds.indexOf(product.id) != -1) return product
-    });
+const getCartContent = (products, cart) => {
+
+    let newProducts = [];
+
+    products.map((product) => {
+        if (cart[product.id]) {
+            newProducts = [
+                ...newProducts
+                ,{ ...product, quantity: cart[product.id].quantity }
+            ]
+        }
+    })
+
     return newProducts;
 }
 
 const mapStateToProps = (state) => {
     return {
-        products: getCartContent(state.products, state.cart.addedIds)
+        products: getCartContent(state.products, state.cart)
     }
 }
 

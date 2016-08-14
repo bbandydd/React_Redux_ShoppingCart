@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { addToCart } from '../actions';
 import ProductsList from '../components/ProductsList';
 import ProductItem from '../components/ProductItem';
 import { getAllProducts } from '../actions'
@@ -14,7 +15,7 @@ class ProductsContainer extends Component {
 
     render() {
 
-        const { products } = this.props;
+        const { dispatch, products } = this.props;
 
         return (
             <ProductsList title="Products">
@@ -23,6 +24,7 @@ class ProductsContainer extends Component {
                         <ProductItem
                             key={ product.id }
                             product = { product }
+                            onAddToCart = { () => dispatch(addToCart(product.id)) }
                         />
                     )
                 }

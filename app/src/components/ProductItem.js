@@ -11,8 +11,11 @@ export default class ProductItem extends Component {
                 <Product
                     product = { product }
                 />
-                <button>
-                    Add to cart
+                <button
+                    onClick = { this.props.onAddToCart }
+                    disabled = { product.inventory > 0 ? '' : 'disabled' }
+                >
+                    { product.inventory > 0 ? 'Add to cart' : 'Sold out' }
                 </button>
             </div>
         )

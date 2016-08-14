@@ -1,14 +1,18 @@
 import * as types from '../constants/ActionTypes';
 
-const initialState = {
-    addedIds: [1, 3]
-}
-
-export default function Cart(state = initialState, action) {
+export default function Cart(state = {}, action) {
     switch(action.type) {
-        default:
+        case types.ADD_TO_CART:
             return {
-                addedIds: state.addedIds
-            };
+                ...state,
+                [action.productId]: {
+                    ...state[action.productId],
+                    quantity: typeof(state[action.productId]) != 'undefined'
+                        ? state[action.productId].quantity + 1
+                        : 1
+                }
+            }
+        default:
+            return state;
     }
 }

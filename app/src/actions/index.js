@@ -16,6 +16,21 @@ export function getAllProducts() {
     }
 }
 
-export function initCart() {
-    
+export function addToCart(productId) {
+    return (dispatch, getState) =>  {
+
+        getState().products.map((product, index) => {
+            if (product.inventory > 0 && product.id == productId) {
+                dispatch(addToCartUnsafe(product.id, index));
+            }
+        })
+    }
+}
+
+function addToCartUnsafe(productId, productIndex) {
+    return {
+        type: types.ADD_TO_CART,
+        productId,
+        productIndex
+    }
 }
