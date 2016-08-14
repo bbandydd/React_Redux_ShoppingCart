@@ -7,12 +7,13 @@ class CartContainer extends Component {
 
     render() {
 
-        const { products } = this.props;
+        const { products, total } = this.props;
 
         return (
             <div>
                 <Cart
                     products = { products }
+                    total = { total }
                 />
             </div>
         )
@@ -35,9 +36,24 @@ const getCartContent = (products, cart) => {
     return newProducts;
 }
 
+const getTotal = (products) => {
+
+    let total = 0.0;
+
+    products.map((product) => {
+        total += product.price * product.quantity;
+    })
+
+    return total.toFixed(2);
+}
+
 const mapStateToProps = (state) => {
+
+    const products = getCartContent(state.products, state.cart);
+
     return {
-        products: getCartContent(state.products, state.cart)
+        products: products,
+        total: getTotal(products)
     }
 }
 

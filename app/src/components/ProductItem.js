@@ -10,6 +10,7 @@ export default class ProductItem extends Component {
             <div style={{ marginBottom: 20 }}>
                 <Product
                     product = { product }
+                    type = { `product` }
                 />
                 <button
                     onClick = { this.props.onAddToCart }
